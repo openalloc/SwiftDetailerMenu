@@ -34,9 +34,9 @@ public struct EditDetailerSwipeMenu<Element>: ViewModifier
 
     public init(_ element: Element,
                 _ toEdit: Binding<Element?>,
-                _ canEdit: @escaping CanEdit = { _ in true },
-                _ canDelete: @escaping CanDelete = { _ in true },
-                _ onDelete: OnDelete? = nil)
+                canEdit: @escaping CanEdit = { _ in true },
+                canDelete: @escaping CanDelete = { _ in true },
+                onDelete: OnDelete? = nil)
     {
         self.element = element
         _toEdit = toEdit
@@ -48,15 +48,15 @@ public struct EditDetailerSwipeMenu<Element>: ViewModifier
     // convenience to unwrap bound element
     public init(_ element: Binding<Element>,
                 _ toEdit: Binding<Element?>,
-                _ canEdit: @escaping CanEdit = { _ in true },
-                _ canDelete: @escaping CanDelete = { _ in true },
-                _ onDelete: OnDelete? = nil)
+                canEdit: @escaping CanEdit = { _ in true },
+                canDelete: @escaping CanDelete = { _ in true },
+                onDelete: OnDelete? = nil)
     {
         self.init(element.wrappedValue,
                   toEdit,
-                  canEdit,
-                  canDelete,
-                  onDelete)
+                  canEdit: canEdit,
+                  canDelete: canDelete,
+                  onDelete: onDelete)
     }
 
     private var isDeleteAvailable: Bool {

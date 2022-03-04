@@ -19,10 +19,10 @@
 import SwiftUI
 
 public struct DetailerDeleteButton<Element, Content>: View
-    where Element: Identifiable, Content: View
+    where Content: View
 {
     public typealias CanDelete = (Element) -> Bool
-    public typealias OnDelete = (Element.ID) -> Void
+    public typealias OnDelete = (Element) -> Void
 
     // MARK: Parameters
 
@@ -62,7 +62,7 @@ public struct DetailerDeleteButton<Element, Content>: View
     // MARK: Views
 
     public var body: some View {
-        Button(action: { onDelete?(element.id) }) {
+        Button(action: { onDelete?(element) }) {
             label()
         }
         .keyboardShortcut(.delete, modifiers: [])

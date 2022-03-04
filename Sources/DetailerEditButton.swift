@@ -22,7 +22,7 @@ import SwiftUI
 ///  * Assumes the user will be allowed to edit (canEdit==true) even if no canEdit provided (canEdit==nil).
 ///
 public struct DetailerEditButton<Element, Content>: View
-    where Element: Identifiable, Content: View
+where Content: View
 {
     public typealias CanEdit = (Element) -> Bool
     public typealias OnEdit = (Element) -> Void

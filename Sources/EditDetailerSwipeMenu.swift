@@ -20,11 +20,10 @@ import SwiftUI
 
 @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *)
 public struct EditDetailerSwipeMenu<Element>: ViewModifier
-    where Element: Identifiable
 {
     public typealias CanEdit = (Element) -> Bool
     public typealias CanDelete = (Element) -> Bool
-    public typealias OnDelete = (Element.ID) -> Void
+    public typealias OnDelete = (Element) -> Void
     public typealias OnEdit = (Element) -> Void
 
     private let element: Element

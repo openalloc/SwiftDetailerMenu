@@ -19,7 +19,7 @@
 import SwiftUI
 
 public struct DetailerViewButton<Element, Content>: View
-    where Element: Identifiable, Content: View
+where Content: View
 {
     public typealias OnView = (Element) -> Void
 

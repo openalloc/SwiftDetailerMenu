@@ -19,11 +19,10 @@
 import SwiftUI
 
 public struct EditDetailerContextMenu<Element>: ViewModifier
-    where Element: Identifiable
 {
     public typealias CanEdit = (Element) -> Bool
     public typealias CanDelete = (Element) -> Bool
-    public typealias OnDelete = (Element.ID) -> Void
+    public typealias OnDelete = (Element) -> Void
     public typealias OnEdit = (Element) -> Void
 
     private let element: Element

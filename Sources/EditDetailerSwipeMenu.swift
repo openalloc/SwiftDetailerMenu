@@ -25,38 +25,25 @@ public struct EditDetailerSwipeMenu<Element>: ViewModifier
     public typealias CanEdit = (Element) -> Bool
     public typealias CanDelete = (Element) -> Bool
     public typealias OnDelete = (Element.ID) -> Void
+    public typealias OnEdit = (Element) -> Void
 
     private let element: Element
-    @Binding private var toEdit: Element?
-    private let canEdit: CanEdit
     private let canDelete: CanDelete
     private let onDelete: OnDelete?
+    private let canEdit: CanEdit
+    private let onEdit: OnEdit
 
     public init(_ element: Element,
-                _ toEdit: Binding<Element?>,
-                canEdit: @escaping CanEdit = { _ in true },
                 canDelete: @escaping CanDelete = { _ in true },
-                onDelete: OnDelete? = nil)
+                onDelete: OnDelete? = nil,
+                canEdit: @escaping CanEdit = { _ in true },
+                onEdit: @escaping OnEdit)
     {
         self.element = element
-        _toEdit = toEdit
-        self.canEdit = canEdit
         self.canDelete = canDelete
         self.onDelete = onDelete
-    }
-
-    // convenience to unwrap bound element
-    public init(_ element: Binding<Element>,
-                _ toEdit: Binding<Element?>,
-                canEdit: @escaping CanEdit = { _ in true },
-                canDelete: @escaping CanDelete = { _ in true },
-                onDelete: OnDelete? = nil)
-    {
-        self.init(element.wrappedValue,
-                  toEdit,
-                  canEdit: canEdit,
-                  canDelete: canDelete,
-                  onDelete: onDelete)
+        self.canEdit = canEdit
+        self.onEdit = onEdit
     }
 
     private var isDeleteAvailable: Bool {
@@ -66,7 +53,7 @@ public struct EditDetailerSwipeMenu<Element>: ViewModifier
     public func body(content: Content) -> some View {
         content
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                DetailerEditButton(element: element, canEdit: canEdit) { toEdit = $0 }
+                DetailerEditButton(element: element, canEdit: canEdit) { onEdit($0) }
                     .tint(.accentColor)
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {

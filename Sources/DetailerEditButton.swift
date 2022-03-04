@@ -31,12 +31,12 @@ public struct DetailerEditButton<Element, Content>: View
 
     private let element: Element
     private let canEdit: CanEdit
-    private let onEdit: OnEdit?
+    private let onEdit: OnEdit
     private let label: () -> Content
 
     public init(element: Element,
                 canEdit: @escaping CanEdit = { _ in true },
-                onEdit: OnEdit?,
+                onEdit: @escaping OnEdit,
                 @ViewBuilder label: @escaping () -> Content)
     {
         self.element = element
@@ -48,7 +48,7 @@ public struct DetailerEditButton<Element, Content>: View
     // omitting explicit Label
     public init(element: Element,
                 canEdit: @escaping CanEdit = { _ in true },
-                onEdit: OnEdit?)
+                onEdit: @escaping OnEdit)
         where Content == Text // Label<Text, Image>
     {
         self.init(element: element,
@@ -60,18 +60,12 @@ public struct DetailerEditButton<Element, Content>: View
         }
     }
 
-    // MARK: Locals
-
-    private var netCanEdit: Bool {
-        onEdit != nil && canEdit(element)
-    }
-
     // MARK: Views
 
     public var body: some View {
-        Button(action: { onEdit?(element) }) {
+        Button(action: { onEdit(element) }) {
             label()
         }
-        .disabled(!netCanEdit)
+        .disabled(!canEdit(element))
     }
 }

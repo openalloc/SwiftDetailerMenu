@@ -18,8 +18,7 @@
 
 import SwiftUI
 
-public struct EditDetailerContextMenu<Element>: ViewModifier
-{
+public struct EditDetailerContextMenu<Element>: ViewModifier {
     public typealias CanEdit = (Element) -> Bool
     public typealias CanDelete = (Element) -> Bool
     public typealias OnDelete = (Element) -> Void
@@ -52,7 +51,7 @@ public struct EditDetailerContextMenu<Element>: ViewModifier
         content
             .contextMenu {
                 DetailerEditButton(element: element, canEdit: canEdit) { onEdit($0) }
-                
+
                 // NOTE if no delete handler, hide menu item entirely
                 if isDeleteAvailable {
                     Divider()

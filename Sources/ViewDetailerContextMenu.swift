@@ -18,8 +18,7 @@
 
 import SwiftUI
 
-public struct ViewDetailerContextMenu<Element>: ViewModifier
-{
+public struct ViewDetailerContextMenu<Element>: ViewModifier {
     private var element: Element
     @Binding private var toView: Element?
 
